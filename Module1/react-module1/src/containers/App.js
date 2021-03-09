@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import './App.css';
-import Person from './Person/Person.js'
+import classes from './App.css';
+import Persons from '../components/Persons/Persons';
+import Cockpit from "../components/Cockpit/Cockpit";
 
 class App extends Component {
   state ={
@@ -21,7 +22,7 @@ class App extends Component {
       ]
     });
   }
-  nameChabgeHandler=(event,id)=>{
+  nameChangeHandler=(event,id)=>{
     let index = this.state.person.findIndex((p)=>p.id === id);
     let obj = {...this.state.person[index]};
     obj.name = event.target.value;
@@ -40,37 +41,26 @@ class App extends Component {
   }
 
   render() {
-    const style={
-      backgroundColor:"red",
-      color:"white",
-      font:"ingerit",
-      border:"1px solid blue",
-      padding:"8px",
-      cursor:'pointer'
-    };
-    let persons =null;
+    let PersonsComponent =null;
     if(this.state.showPerson){
 
-      persons =(
-        this.state.person.map((p,idx)=><Person 
-        key={p.id} name={p.name} age={p.age} 
-        Changed ={(event)=>this.nameChabgeHandler(event,p.id)} 
-        click ={this.deletePersonHandler.bind(this,idx)}
-        >{p.other}
-        </Person>)
+      PersonsComponent =(
+       <Persons 
+       persons ={this.state.person}
+       clicked = {this.deletePersonHandler}
+       changed = {this.nameChangeHandler}
+       ></Persons>
       );
-      style.backgroundColor="green";
     }
-    const cssClass =[];
-    if(this.state.person.length == 2)
-      cssClass.push("lightred");
-    if(this.state.person.length == 1)
-    cssClass.push("red");
     return (
-      <div className="App">
-        <h1 className={cssClass.join(' ')}>Hi I am React App</h1>
-        <button onClick={this.togglePersonHandler} style={style}>Switch Name</button>
-        {persons}
+      <div className={classes.App}>
+       <Cockpit
+       showPerson={this.state.showPerson}
+       count={this.state.person.length}
+       clicked ={this.togglePersonHandler}
+       />
+        {PersonsComponent}
+        <button className={classes.Button}>Another Button</button>
       </div>
     );
     //return React.createElement('div',{className:'App'},React.createElement("h1",'null',"Hello World!!"));
