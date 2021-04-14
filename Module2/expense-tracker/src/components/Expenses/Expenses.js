@@ -12,11 +12,12 @@ const Expenses=(props)=>{
             filterdYear:filterData
         })
     }
+    const filterExpenseDate = props.item.filter((p)=>new Date(p.date).getFullYear() == filterData.filterdYear)
     return (
         <div className='expenses'>
             <ExpenseFilter getSelectYear={filterChangeHandler} selected={filterData.filterdYear}></ExpenseFilter>
             {
-                 props.item.map((p)=><ExpenseItem
+                 filterExpenseDate.map((p)=><ExpenseItem
                  key={p.id}
                  title={p.title}
                  amount ={p.amount}
