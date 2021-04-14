@@ -28,9 +28,13 @@ function App() {
       date:new Date(2020,6,21)
     }
   ];
+  const addExpenseHandler=(expenseData)=>{
+    console.log(expenseData);
+  }
+
   return (
     <div>
-      <NewExpense></NewExpense>
+      <NewExpense addExpense={addExpenseHandler}></NewExpense>
       <Expenses item={expense}></Expenses>
     </div>
   );
