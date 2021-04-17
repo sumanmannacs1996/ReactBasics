@@ -23,17 +23,17 @@ const AddUser=(props)=>{
         })
     }
     const addUserHandler=()=>{
-        if(enteredUserName.username.trim() ==='' || enteredUserName.age.trim() === ''){
+        if(enteredUserName.username.trim() ==='' || enteredUserName.age.trim() === '' || +enteredUserName.age <=0){
             return;
         }
-        console.log(enteredUserName);
+        props.addUser(enteredUserName);
         setUserNme({
             username:'',
             age:''
         })
     }
     return(
-        <Card inputStyle ={styles.input}>
+        <Card newStyle ={styles.input}>
         <form>
             <label htmlFor='username'>Person Name</label>
             <input id='username' type='text' onChange={usernameChangeHandler} value={enteredUserName.username}></input>
