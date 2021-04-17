@@ -1,6 +1,6 @@
 import React,{useState} from 'react';
 import Button from '../UI/Button/Button'
-import './CouseInput.css'
+import styles from'./CouseInput.module.css'
 const CourseInput = (props)=>{
     const [entiredValue,setEnterdValue]=useState('');
     const [isValid,setState] = useState(true);
@@ -17,7 +17,7 @@ const CourseInput = (props)=>{
     }
     return(
         <form>
-            <div className={`form-control ${!isValid ? 'invalid' :''}`}>
+            <div className={`${styles['form-control']} ${!isValid ? styles.invalid : ''}`}>
                 <label>Course Name</label>
                 <input type='text' onChange={nameChangeHandler}></input>
             </div>
