@@ -2,6 +2,7 @@ import React,{useState} from 'react';
 import Card from './../UI/Card'
 import styles from './AddUser.module.css'
 import Button from '../UI/Button'
+import ErrorModal from '../UI/ErrorModal'
 const AddUser=(props)=>{
     const [enteredUserName,setUserNme]=useState(
         {
@@ -9,6 +10,8 @@ const AddUser=(props)=>{
             age:''
         }
     );
+    const [errorState,setErrorState]= useState(false);
+    const [errorDetails,setErrorDetails]= useState();
     const usernameChangeHandler=(event)=>{
         setUserNme((prev)=>{
             const newObj = {...prev};
@@ -23,7 +26,20 @@ const AddUser=(props)=>{
         })
     }
     const addUserHandler=()=>{
-        if(enteredUserName.username.trim() ==='' || enteredUserName.age.trim() === '' || +enteredUserName.age <=0){
+        if(enteredUserName.username.trim() ==='' || enteredUserName.age.trim() === ''){
+            setErrorState(true);
+            setErrorDetails({
+                title:'Invalid Input!!',
+                message:'Please enter a valid name and age (non-empty values).'
+            });
+            return;
+        }
+        else if(+enteredUserName.age <=0){
+            setErrorState(true);
+            setErrorDetails({
+                title:'Invalid Age!!',
+                message:'Please enter a valid age (> 0).'
+            })
             return;
         }
         props.addUser(enteredUserName);
@@ -32,7 +48,15 @@ const AddUser=(props)=>{
             age:''
         })
     }
+    const backDropHandler =()=>{
+        setErrorState(false);
+    }
     return(
+        <div>
+            {errorState ?
+        <ErrorModal title={errorDetails.title} message={errorDetails.message} Okay={backDropHandler}></ErrorModal>
+        : null
+            }
         <Card newStyle ={styles.input}>
         <form>
             <label htmlFor='username'>Person Name</label>
@@ -42,6 +66,7 @@ const AddUser=(props)=>{
             <Button type ='button' onClick={addUserHandler}>Add User</Button>
         </form>
         </Card>
+        </div>
     );
 }
 
