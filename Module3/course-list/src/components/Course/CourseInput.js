@@ -17,12 +17,9 @@ const CourseInput = (props)=>{
     }
     return(
         <form>
-            <div className="form-control">
-                <label style={{color: !isValid ? 'red':'black'}}>Course Name</label>
-                <input type='text' onChange={nameChangeHandler} 
-                style={{borderColor: !isValid ? 'red' :'#ccc',
-                        backgroundColor: !isValid ? 'salmon': 'transparent'
-                }}></input>
+            <div className={`form-control ${!isValid ? 'invalid' :''}`}>
+                <label>Course Name</label>
+                <input type='text' onChange={nameChangeHandler}></input>
             </div>
             <Button type='button' click={addCouseHandler}>Add Course</Button>
         </form>
