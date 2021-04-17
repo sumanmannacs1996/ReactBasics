@@ -14,12 +14,13 @@ const CourseInput = (props)=>{
             return;
         }
         props.add(entiredValue);
+        setEnterdValue('');
     }
     return(
         <form>
             <div className={`${styles['form-control']} ${!isValid ? styles.invalid : ''}`}>
                 <label>Course Name</label>
-                <input type='text' onChange={nameChangeHandler}></input>
+                <input type='text' onChange={nameChangeHandler} value ={entiredValue}></input>
             </div>
             <Button type='button' click={addCouseHandler}>Add Course</Button>
         </form>
