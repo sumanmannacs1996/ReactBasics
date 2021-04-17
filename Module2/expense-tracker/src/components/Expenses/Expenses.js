@@ -14,6 +14,7 @@ const Expenses=(props)=>{
         })
     }
     const filteredList = props.item.filter((p)=>new Date(p.date).getFullYear().toString() === filterData.filterdYear);
+    filteredList.sort((a,b)=> a.amount < b.amount ? 1 : -1);  //sort by max price to min 
     //console.log(filteredList);
     return (
         <div className='expenses'>

@@ -9,7 +9,7 @@ const Chart =(props)=>{
     return(
         <div className='chart'>
         {
-            props.dataPoint.map((p)=><ChartBar value={p.value} max={totalMaximum} label={p.label} key={p.label}></ChartBar>)
+            props.dataPoint.map((p)=><ChartBar value={p.value} max={totalMaximum} label={p.label} key={p.label} monthlyExpense ={p.value}></ChartBar>)
         }
     </div>
     )

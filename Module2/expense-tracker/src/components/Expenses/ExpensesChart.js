@@ -19,7 +19,7 @@ const ExpensesChart =(props)=>{
     for(let data of props.expensesFilterdByYear){
         const month = new Date(data.date).getMonth();
         //console.log(month);
-        chartDataPoints[month].value += data.amount;
+        chartDataPoints[month].value += (+data.amount);
     }
     //console.log(chartDataPoints);
 
