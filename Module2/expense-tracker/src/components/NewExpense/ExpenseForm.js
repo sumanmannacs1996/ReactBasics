@@ -36,6 +36,9 @@ const ExpenseForm =(props)=>{
          date:''
         })
     }
+    const closeEditHandler=()=>{
+        props.onCancle(false);
+    }
 
     return(
         <div>
@@ -54,6 +57,7 @@ const ExpenseForm =(props)=>{
                 </div>
             </div>
             <div className ='new-expense__actions'>
+                <button type ='button' onClick={closeEditHandler}>Cancle</button>
                 <button type='submit' onClick={submitHandler}>Add Expense</button>
             </div>
         </div>
