@@ -6,7 +6,7 @@ const defaultCartState ={
     totalAmount:0
 }
 const cartResucer =(state,action)=>{
-    if(action.type ="ADD"){
+    if(action.type ==="ADD"){
         const updatedAmount = state.totalAmount + action.item.price * action.item.quantity;
         const existingCartItemIndex =state.items.findIndex((p)=>p.id === action.item.id);
         let updatedItems;
@@ -23,6 +23,26 @@ const cartResucer =(state,action)=>{
             totalAmount:updatedAmount
         }
     }
+    if(action.type==="REMOVE"){
+        let updatedItems;
+        const findItemIndex = state.items.findIndex((p)=>p.id ===action.id);
+        let updatedAmount = state.totalAmount - state.items[findItemIndex].price;
+        if(state.items[findItemIndex].quantity >1){
+            const iteamData = state.items[findItemIndex];
+            const updatedItemData = {...iteamData,quantity:iteamData.quantity - 1};
+            updatedItems =[...state.items];
+            updatedItems[findItemIndex] = updatedItemData;
+        }
+        else{
+            updatedItems = state.items.filter((p)=>p.id !== action.id);
+        }
+
+        return{
+            items:updatedItems,
+            totalAmount:updatedAmount
+        }
+    }
+    
     
 }
 export default function CartProvider(props) {
