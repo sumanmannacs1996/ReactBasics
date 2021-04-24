@@ -21,7 +21,7 @@ export default function Cart(props) {
                name={p.name}
                price ={p.price}
                quantity={p.quantity}
-               onAdd={cartItemAddHandler.bind(null,p)}
+               onAdd={cartItemAddHandler.bind(null,{...p,quantity:1})}
                onRemove={cartItemDeleteHandler.bind(null,p.id)}></CartItem>)
             }
         </ul>
