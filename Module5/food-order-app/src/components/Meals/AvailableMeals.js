@@ -32,7 +32,7 @@ export default function AvailableMeals() {
     return (
         <div className={styles.meals}>
             <Card >
-                {DUMMY_MEALS.map((p)=><MealItem data={p}></MealItem>)}
+                {DUMMY_MEALS.map((p)=><MealItem data={p} key={p.id}></MealItem>)}
             </Card>
         </div>
     )
