@@ -7,8 +7,17 @@ const defaultCartState ={
 }
 const cartResucer =(state,action)=>{
     if(action.type ="ADD"){
-        const updatedItems = state.items.concat(action.item);
         const updatedAmount = state.totalAmount + action.item.price * action.item.quantity;
+        const existingCartItemIndex =state.items.findIndex((p)=>p.id === action.item.id);
+        let updatedItems;
+        if(existingCartItemIndex=== -1)
+            updatedItems = [...state.items,action.item];
+        else{
+            const iteamData = state.items[existingCartItemIndex];
+            const updatedItemData = {...iteamData,quantity:iteamData.quantity + action.item.quantity};
+            updatedItems =[...state.items];
+            updatedItems[existingCartItemIndex] = updatedItemData;
+        } 
         return{
             items:updatedItems,
             totalAmount:updatedAmount
