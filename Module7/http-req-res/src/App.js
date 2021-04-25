@@ -3,13 +3,11 @@ import './App.css';
 import MoviesList from './components/MoviesList';
 function App() {
   const [Movies,setMovies]= useState([]);
-  const fechMovieHandler=()=>{
-    fetch('https://swapi.dev/api/films/').then((res)=>{
-      return res.json();
-    }).then((data)=>{
+  const fechMovieHandler= async()=>{
+    const res = await fetch('https://swapi.dev/api/films/');
+      const data= await res.json();
       setMovies(data.results);
-    })
-  }
+    }
   return (
     <div className="App">
       <section>
