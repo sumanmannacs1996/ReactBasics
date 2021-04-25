@@ -4,13 +4,24 @@ import MoviesList from './components/MoviesList';
 function App() {
   const [Movies,setMovies]= useState([]);
   const [Loading,setLoading] = useState(false);
+  const [error,setError] = useState(undefined);
   const fechMovieHandler= async()=>{
-    setLoading(true);
-    const res = await fetch('https://swapi.dev/api/films/');
+    try{
+      setLoading(true);
+      setError(undefined);
+      const res = await fetch('https://swapi.dev/api/films/');
+      if(!res.ok){
+        throw new Error("Something went wrong..");
+      }
       const data= await res.json();
       setMovies(data.results);
       setLoading(false);
-    }
+    }catch(e){
+      setError(e.message);
+      setLoading(false);
+      }
+  }
+
   return (
     <div className="App">
       <section>
@@ -18,6 +29,7 @@ function App() {
       </section>
       <section>
         {!Loading && Movies.length>0 && <MoviesList movies={Movies} />}
+        {!Loading && error && <p>{error}</p>}
         {!Loading && Movies.length===0 && <p>No Movies Present!!</p>}
         {Loading && <p>Lading...</p>}
       </section>
