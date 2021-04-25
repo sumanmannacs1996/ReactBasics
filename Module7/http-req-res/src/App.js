@@ -38,15 +38,21 @@ function App() {
   },[fechMovieHandler]);
 
   const addMovieHandler= async(inputMovie)=>{
-    const res =await fetch('https://react-http-1e282-default-rtdb.firebaseio.com/movies.json',{
+    try{
+      const res =await fetch('https://react-http-1e282-default-rtdb.firebasei.com/movies.json',{
       method:'POST',
       body:JSON.stringify(inputMovie),
       headers:{
         'Content-Type':'applocation/json'
       }
     });
-    const data = await res.json();
-    console.log(data);
+    if(!res.ok){
+      throw new Error("Something went wrong..");
+    }
+    fechMovieHandler();
+    }catch(error){
+      setError(error.message);
+    }
   }
 
   return (
@@ -58,8 +64,8 @@ function App() {
         <button onClick={fechMovieHandler}>Fetch Movies</button>
       </section>
       <section>
+        {!Loading && error && <p style={{color:'red',fontWeight:'bold'}}>{error}</p>}
         {!Loading && Movies.length>0 && <MoviesList movies={Movies} />}
-        {!Loading && error && <p>{error}</p>}
         {!Loading && Movies.length===0 && <p>No Movies Present!!</p>}
         {Loading && <p>Lading...</p>}
       </section>

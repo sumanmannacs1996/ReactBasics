@@ -7,13 +7,17 @@ export default function AddMovie(props) {
     const dateRef = useRef('');
     const submitHandler=(event)=>{
         event.preventDefault();
+        //add validation
+        if(titleRef.current.value.trim() ==='' || dateRef.current.value.trim() === '' || openingTextRef.current.value.trim() === ''){
+          alert("Please enter all the values!!");
+          return false;
+        }
         const movie ={
             title:titleRef.current.value,
             release_date:dateRef.current.value,
             opening_crawl:openingTextRef.current.value
         }
         props.onAddMovie(movie);
-
     }
     return (
         <form onSubmit={submitHandler}>
