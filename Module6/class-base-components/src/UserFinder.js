@@ -1,8 +1,6 @@
 import Rreact,{Component} from 'react'
 import User from './User';
 import UsersContext from './users-context';
-
-
 class UserFinder extends Component{
     static contextType = UsersContext;
     constructor(){
@@ -33,7 +31,6 @@ class UserFinder extends Component{
     searchChangeHandler(event){
         this.setState({searchTerm:event.target.value});
     }
-
     render(){
         return(
             <div>
@@ -43,5 +40,4 @@ class UserFinder extends Component{
         )
     }
 }
-
 export default UserFinder;
