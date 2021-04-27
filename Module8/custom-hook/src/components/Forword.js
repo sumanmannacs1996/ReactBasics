@@ -1,16 +1,7 @@
-import React,{useState,useEffect} from 'react'
 import Card from './Card'
+import useCounter from '../hooks/use-counter';
 export default function Forword() {
-    const [counter,setCounter]=useState(0);
-
-    useEffect(()=>{
-        const interval = setInterval(()=>{
-            setCounter((preState)=>preState +1);
-        },1000);
-        return ()=>{
-            clearInterval(interval);
-        }
-    },[counter])
-
+    const counter =useCounter(true);
+    
     return <Card>{counter}</Card>
 }
