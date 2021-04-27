@@ -4,10 +4,13 @@ export default function Backword() {
     const [counter,setCounter]=useState(0);
 
     useEffect(()=>{
-        setTimeout(()=>{
+        const interval =setInterval(()=>{
             setCounter((preState)=>preState - 1);
-        },1000)
-    })
+        },1000);
+        return ()=>{
+            clearInterval(interval);
+        }
+    },[counter])
 
     return <Card>{counter}</Card>
 }
