@@ -43,7 +43,13 @@ export default function Checkout(props) {
 
     const confirmHandler=(event)=>{
         event.preventDefault();
-        console.log(name,street,postal,city);
+        props.onConform({
+            name:name,
+            street:street,
+            postal:postal,
+            city:city
+        });
+        //console.log(name,street,postal,city);
     }
 
     const nameClass = `${classes.control} ${nameHasError ? classes.invalid : ''}`;
@@ -56,22 +62,22 @@ export default function Checkout(props) {
       <div className={nameClass}>
         <label htmlFor='name'>Your Name</label>
         <input type='text' id='name' onChange={nameChangeHandler} onBlur={nameBlurHandler} value={name}/>
-        {nameHasError && <p className='errortext'>Please enter a valid name!</p>}
+        {nameHasError && <p className={classes.errortext}>Please enter a valid name!</p>}
       </div>
       <div className={streetClass}>
         <label htmlFor='street'>Street</label>
         <input type='text' id='street' onChange={streetChangeHandler} onBlur={streetBlurHandler} value={street}/>
-        {streetHasError && <p className='errortext'>Please enter a valid street!</p>}
+        {streetHasError && <p className={classes.errortext}>Please enter a valid street!</p>}
       </div>
       <div className={postalClass}>
         <label htmlFor='postal'>Postal Code</label>
         <input type='number' id='postal' onChange={postalChangeHandler} onBlur={postalBlurHandler} value={postal}/>
-        {postalHasError && <p className='errortext'>Please enter a valid postal code (6 digt number)!</p>}
+        {postalHasError && <p className={classes.errortext}>Please enter a valid postal code (6 digt number)!</p>}
       </div>
       <div className={cityClass}>
         <label htmlFor='city'>City</label>
         <input type='text' id='city' onChange={cityChangeHandler} onBlur={cityBlurHandler} value={city}/>
-        {cityHasError && <p className='errortext'>Please enter a valid city!</p>}
+        {cityHasError && <p className={classes.errortext}>Please enter a valid city!</p>}
       </div>
       <div className={classes.actions}>
         <button type='button' onClick={props.onCancel}>
