@@ -80,8 +80,8 @@ export default function Cart(props) {
         <Modal backDropClick ={props.backDropHideCart}>
             {!isSubmiting && !didSubmit && cartModalcontent}
             {isSubmiting && <p style={{color:'green'}}>Sending your order data...</p>}
-            {didSubmit && !isSubmiting && <div>
-                <p style={{color:'green'}}>Your order Successful!!</p>
+            {didSubmit && !isSubmiting && <div className={styles.actions}>
+                <p style={{color:'green', textAlign:'center'}}>Your order Successful!!</p>
                 <button className={styles.button} onClick={props.hideCart}>Close</button>
                 </div>}
             {error && !isSubmiting && <p style={{color:'red'}}>{error}</p>}
