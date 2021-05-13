@@ -18,7 +18,7 @@ export const fetchCartData =()=>{
           dispatch(cartActions.replaceCart({
             items:cartData.items || [],
               totalQuantty:cartData.totalQuantty,
-              changed:cartData.changed
+              changed:false
           }));
         }catch(err){
             dispatch(uiActions.showNotification({
