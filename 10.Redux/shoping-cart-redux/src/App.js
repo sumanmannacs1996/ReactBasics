@@ -5,6 +5,7 @@ import Products from './components/Shop/Products';
 import {useSelector, useDispatch} from 'react-redux';
 import {uiActions} from './store/ui-slice';
 import Notification from './components/UI/Notification';
+import {sendCartData} from './store/cart-slice';
 let initial = true;
 
 function App() {
@@ -12,7 +13,8 @@ function App() {
 const uiState = useSelector(state=>state.ui.isCartVisible);
 const cartState = useSelector(state=>state.cart.items);
 const notificationState = useSelector(state=>state.ui.notification);
-
+/*
+//code for send cart data inide component------------
 useEffect(()=>{
   const sendCartData=async()=>{
     dispatch(uiActions.showNotification({
@@ -33,7 +35,6 @@ useEffect(()=>{
       message:'Sent cart data Successfully!'
     }));
   }
-
   if(initial){
     initial =false;
     return;
@@ -47,6 +48,14 @@ useEffect(()=>{
   })
   
 },[cartState,dispatch]);
+*/
+useEffect(()=>{
+  if(initial){
+    initial=false;
+    return;
+  }
+  dispatch(sendCartData(cartState));
+},[cartState,dispatch])
 
   return (
     <React.Fragment>
