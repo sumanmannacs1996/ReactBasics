@@ -5,13 +5,13 @@ import Products from './components/Shop/Products';
 import {useSelector, useDispatch} from 'react-redux';
 import {uiActions} from './store/ui-slice';
 import Notification from './components/UI/Notification';
-import {sendCartData} from './store/cart-slice';
+import {sendCartData,fetchCartData} from './store/cart-actions';
 let initial = true;
 
 function App() {
   const dispatch = useDispatch();
 const uiState = useSelector(state=>state.ui.isCartVisible);
-const cartState = useSelector(state=>state.cart.items);
+const cartState = useSelector(state=>state.cart);
 const notificationState = useSelector(state=>state.ui.notification);
 /*
 //code for send cart data inide component------------
@@ -49,12 +49,20 @@ useEffect(()=>{
   
 },[cartState,dispatch]);
 */
+// for fetch cart data
+useEffect(()=>{
+dispatch(fetchCartData());
+},[dispatch]);
+
+// for send cart data
 useEffect(()=>{
   if(initial){
     initial=false;
     return;
   }
-  dispatch(sendCartData(cartState));
+  if(cartState.changed){
+    dispatch(sendCartData(cartState));
+  }
 },[cartState,dispatch])
 
   return (
