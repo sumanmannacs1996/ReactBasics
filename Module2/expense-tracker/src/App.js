@@ -1,8 +1,8 @@
-import React,{useState} from 'react';
+import React,{useState,useEffect} from 'react';
 import './App.css'
 import Expenses from './components/Expenses/Expenses'
 import NewExpense from './components/NewExpense/NewExpense';
-const expense=[
+/*const expense=[
   {
     id:'e1',
     title:'New Mobile',
@@ -45,15 +45,35 @@ const expense=[
     amount:850040,
     date:new Date(2023,6,21)
   }
-];
+]; */
+
+const sendDta =(data) =>{
+  fetch('https://react-http-1e282-default-rtdb.firebaseio.com/expense.json',{
+    method:"PUT",
+    body:JSON.stringify(data)
+  });
+}
+
 function App() {
-  const [expensesList,updateExpenseList] = useState(expense);
+  const [expensesList,updateExpenseList] = useState([]);
   const addExpenseHandler=(expenseData)=>{
-    //console.log(expenseData);
+    expenseData.amount = parseFloat(expenseData.amount);
+    console.log(expenseData);
     updateExpenseList((prevState)=>{
-      return[expenseData,...prevState]
+      const updatedData = [expenseData,...prevState];
+      sendDta(updatedData);
+      return updatedData;
     });
   }
+
+  useEffect(()=>{
+    const fetchExpense = async ()=>{
+      const  response = await fetch('https://react-http-1e282-default-rtdb.firebaseio.com/expense.json');
+      const responseData = await response.json(response);
+      updateExpenseList(responseData);
+    }
+    fetchExpense();
+  },[updateExpenseList]);
 
   return (
     <div>

@@ -11,7 +11,6 @@ export const fetchCartData =()=>{
             const data = await response.json();
             return data;
         }
-
         try{
           const cartData = await fetchData();
           //console.log(cartData);
